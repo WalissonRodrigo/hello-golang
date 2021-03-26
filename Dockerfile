@@ -1,11 +1,11 @@
 FROM golang:alpine AS builder
 
-WORKDIR $GOPATH/src/hello-word
+WORKDIR /go
 COPY main.go .
-RUN go build -o /go/main
+RUN go build /go/main.go
 
-FROM scratch:alpine
+FROM scratch
 
 COPY --from=builder /go/main /go/main
 
-CMD ["/go/main"]
+ENTRYPOINT ["/go/main"]
